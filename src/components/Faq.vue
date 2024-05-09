@@ -47,4 +47,9 @@ export default {
 .faq-h3 {
   text-align: left
 }
+.div-title-revew {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 100px rgba(0, 0, 0, .04);
+  margin: 10px 0 10px 0;
+  height: 100px;
+}
 </style>

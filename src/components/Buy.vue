@@ -27,7 +27,7 @@
             </el-col>
             <el-col :span="12">
               <div class="grid-content bg-purple-light">
-                <el-rate class="text-left-g"
+                <el-rate class="text-left-g" style="font-size: 30px; font-size: 20px; margin-top: 3%; margin-left: -10%;"
                   v-model="value"
                   disabled
                   text-color="red"
@@ -63,19 +63,23 @@
     <el-divider></el-divider>
     <div>我是A+模块</div>
     <div><Faq></Faq></div>
-    <div>我是评论模块</div>
-    <div>我是页尾模块---可有可无</div>
+    <div><Review></Review></div>
+    <div><Footer></Footer></div>
 </div>
 </template>
 
 <script>
 import Title from './Title.vue'
 import Faq from './Faq.vue'
+import Review from './Review.vue'
+import Footer from './Footer.vue'
 
 export default {
   components: {
     Title,
-    Faq
+    Faq,
+    Review,
+    Footer
   },
   name: 'Buy',
   data () {
@@ -123,16 +127,6 @@ export default {
   .el-carousel__item:nth-child(2n+1) {
     background-color: #d3dce6;
   }
-  /deep/ .el-rate__icon {
-    font-size: 30px; /* 调整星星的大小 */
-  }
-  /deep/ .el-rate__text {
-  font-size: 20px; /* 根据需求调整字体大小 */
-  }
-  /deep/ .el-rate {
-    margin-top: 3%; /* 调整这个值来控制距离顶部的距离 */
-    margin-left: -10%;
-  }
   /deep/ .el-carousel__container {
     height: 500px
   }
@@ -143,7 +137,7 @@ export default {
     line-height: 30px;
   }
   .text-left-g {
-    text-align:left
+    text-align:left;
   }
   .custom-divider {
     margin: 10px; /* 上下间距 */
@@ -155,6 +149,7 @@ export default {
     margin-left: -27%;
     width: 73%;
     height: 50px;
-    margin-top:2%
+    margin-top:2%;
+    border-radius: 30px
   }
 </style>

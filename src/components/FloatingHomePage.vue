@@ -9,7 +9,7 @@ export default {
   name: 'FloatingHomePage',
   data () {
     return {
-      url1: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg'
+      url1: require('@/assets/3.jpg')
     }
   }
 }
