@@ -1,10 +1,10 @@
 <template>
   <div class="div-size-review">
     <div class="div-title-revew">
-      <div style="height: 10px;"></div>
+      <div class="div-he-review"></div>
       <h1>Check out everyone’s experience</h1>
     </div>
-    <el-row style="margin-top:10px" v-for="item in reviewCon" :key=item.length :gutter="12">
+    <el-row class="el-ma-le-review" v-for="item in reviewCon" :key=item.length :gutter="12">
       <el-col v-for="con in item" :key=con.length :span="8">
         <el-card shadow="always">
           <!--
@@ -31,7 +31,7 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-button type="text" v-if=show @click="showReviews()" style="margin-top:20px; font-size:20px; color:black">Show more reviews</el-button>
+    <el-button type="text" v-if=show @click="showReviews()" class="but-review">Show more reviews</el-button>
   </div>
 </template>
 
@@ -67,5 +67,16 @@ export default {
 .div-size-review {
   width:80%;
   margin-left:10%
+}
+.div-he-review {
+  height: 10px;
+}
+.el-ma-le-review {
+  margin-top:10px
+}
+.but-review {
+  margin-top:20px;
+  font-size:20px;
+  color:black
 }
 </style>

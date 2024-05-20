@@ -7,7 +7,7 @@
 
     <div class="div-top-home">
       <el-carousel :interval="2000" type="card">
-        <el-carousel-item style="background-color: rgba(0,0,0,0)" v-for="item in imgList" :key="item.id">
+        <el-carousel-item class="el-carousel-item-home" v-for="item in imgList" :key="item.id">
           <img style="object-fit: scale-down; width:100%; height:100%" :src="item.idView">
         </el-carousel-item>
       </el-carousel>
@@ -15,7 +15,7 @@
 
     <div class="div-top-home">
       <div class="img-home-pos">
-        <div style="position:absolute; z-index:2; left:44%; top:80%; width: 30%; margin-left:-10%">
+        <div class="div-imgd-home">
           <h1 class="text-color-home">Luminique</h1>
             <h4 class="text-color-home">women face epilator</h4>
             <el-row>
@@ -31,11 +31,11 @@
               </el-col>
             </el-row>
         </div>
-        <el-image :src="require('@/assets/1.jpg')" lazy style="width: 100%;height:100%;object-fit: cover;"></el-image>
+        <el-image :src="require('@/assets/1.jpg')" lazy class="imgd-home"></el-image>
       </div>
       <div></div>
       <div class="img-home-pos">
-        <div style="position:absolute; z-index:2; left:44%; top:80%; width: 30%; margin-left:-10%">
+        <div class="div-imgd-home">
           <h1 class="text-color-home">Luminique</h1>
             <h4 class="text-color-home">women face epilator</h4>
             <el-row>
@@ -51,7 +51,7 @@
               </el-col>
             </el-row>
         </div>
-        <el-image :src="require('@/assets/2.jpg')" lazy style="width: 100%;height:100%;object-fit: cover;"></el-image>
+        <el-image :src="require('@/assets/2.jpg')" lazy class="imgd-home"></el-image>
       </div>
       <div></div>
       <div><Faq></Faq></div>
@@ -122,15 +122,30 @@ export default {
   margin-top: -4px;
 }
 .custom-button {
-    width: 75%;
-    height: 50px;
-    margin-top:0%;
-    border-radius: 40px;
-    width:60%;
-    font-size:15px;
-    font-weight:bold
-  }
-  .text-color-home {
-    color:white
-  }
+  height: 50px;
+  margin-top:0%;
+  border-radius: 40px;
+  width:60%;
+  font-size:15px;
+  font-weight:bold
+}
+.text-color-home {
+  color:white
+}
+.el-carousel-item-home {
+  background-color: rgba(0,0,0,0)
+}
+.div-imgd-home {
+  position:absolute;
+  z-index:2;
+  left:44%;
+  top:80%;
+  width: 30%;
+  margin-left:-10%
+}
+.imgd-home {
+  width: 100%;
+  height:100%;
+  object-fit: cover;
+}
 </style>

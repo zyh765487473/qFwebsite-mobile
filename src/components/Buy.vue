@@ -52,11 +52,12 @@
             </el-col>
             <el-col :span="12">
               <div class="grid-content bg-purple-light">
-                <el-input-number v-model="num" :min="1" :max="20" label="Quantity:"></el-input-number>
+                <el-input-number v-model="num" :min="1" :max="5" label="Quantity:"></el-input-number>
               </div>
             </el-col>
           </el-row>
-          <el-button class="custom-button" type="success" plain>BUY NOW</el-button>
+          <el-button class="custom-button" type="success" @click="checkOut()" plain>ADD TO CARD</el-button>
+          <!--<PaypalBut style="margin-left:0%; width:73%"></PaypalBut>-->
         </div>
       </el-col>
     </el-row>
@@ -73,13 +74,15 @@ import Title from './Title.vue'
 import Faq from './Faq.vue'
 import Review from './Review.vue'
 import Footer from './Footer.vue'
+import PaypalBut from './PaypalBut.vue'
 
 export default {
   components: {
     Title,
     Faq,
     Review,
-    Footer
+    Footer,
+    PaypalBut
   },
   name: 'Buy',
   data () {
@@ -113,6 +116,9 @@ export default {
     }
   },
   methods: {
+    checkOut () {
+      this.$router.push({name: 'shopCart'})
+    }
   },
   mounted () {
   }
@@ -127,10 +133,10 @@ export default {
   .el-carousel__item:nth-child(2n+1) {
     background-color: #d3dce6;
   }
-  /deep/ .el-carousel__container {
+  */deep/ .el-carousel__container {
     height: 500px
   }
-  /deep/ .el-input-number--small {
+  */deep/ .el-input-number--small {
     margin-left: -50%;
     margin-top:3%;
     width: 200px;
@@ -150,6 +156,7 @@ export default {
     width: 73%;
     height: 50px;
     margin-top:2%;
-    border-radius: 30px
+    border-radius: 30px;
+    font-size: 18px;
   }
 </style>
