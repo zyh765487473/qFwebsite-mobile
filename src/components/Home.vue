@@ -96,7 +96,7 @@ export default {
     showDiv () {
       setTimeout(() => {
         this.logo = false
-      }, 2000) // 2秒后隐藏div
+      }, 1500) // 1.5秒后隐藏div
     }
   },
   mounted () {

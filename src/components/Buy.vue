@@ -22,7 +22,7 @@
             <!--价格-->
             <el-col :span="12">
               <div class="grid-content bg-purple">
-                <h2 class="text-left-g">{{price}}</h2>
+                <h2 class="text-left-g">${{price}} USD</h2>
               </div>
             </el-col>
             <el-col :span="12">
@@ -56,7 +56,7 @@
               </div>
             </el-col>
           </el-row>
-          <el-button class="custom-button" type="success" @click="checkOut()" plain>ADD TO CARD</el-button>
+          <el-button class="custom-button" type="success" @click="shopCart()" plain>ADD TO CARD</el-button>
           <!--<PaypalBut style="margin-left:0%; width:73%"></PaypalBut>-->
         </div>
       </el-col>
@@ -66,7 +66,7 @@
     <div><Faq></Faq></div>
     <div><Review></Review></div>
     <div><Footer></Footer></div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -104,7 +104,7 @@ export default {
       // 标题
       title: 'women face epilator',
       // 售价
-      price: '$69.99 USD',
+      price: '69.99',
       // 五点描述
       description: [
         {id: 0, value: '■ Long-lasting hair removal from the comfort of home.'},
@@ -116,8 +116,9 @@ export default {
     }
   },
   methods: {
-    checkOut () {
-      this.$router.push({name: 'shopCart'})
+    shopCart () {
+      let til = this.logoTitle + ' ' + this.title
+      this.$router.push({name: 'shopCart', params: {'title': til, 'price': this.price, 'num': this.num}})
     }
   },
   mounted () {

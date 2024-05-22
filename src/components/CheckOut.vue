@@ -48,16 +48,16 @@
             <div class="sub-title float-left-check-out margin-check-out">Apartment/Suite/Building (Optional):</div>
             <el-input size="medium" v-model="addressTwo" placeholder=""></el-input>
             <div class="sub-title float-left-check-out margin-check-out">Phone Number:</div>
-            <el-input size="medium" v-model="Phone" placeholder=""></el-input>
+            <el-input size="medium" v-model="phone" placeholder=""></el-input>
           </div>
-          <el-button type="info" class="but-check-out">CONTINUE WITH PAYPAL</el-button>
+          <el-button type="info" class="but-check-out" @click="commitOrder">CONTINUE WITH PAYPAL</el-button>
         </el-col>
         <el-col :span="10" class="el-col-right-check-out">
           <el-card class="box-card">
               <div><h1 class="text-left-check-out margin-left-3-check-out">Order Summary</h1></div>
               <div>
                 <el-divider></el-divider>
-                <h2 class="text-left-check-out margin-left-3-check-out">item</h2>
+                <h2 class="text-left-check-out margin-left-3-check-out">{{ num }} * item</h2>
               </div>
               <div>
                 <el-row>
@@ -67,10 +67,10 @@
                   </el-col>
                   <el-col :span="12">
                     <div class="el-col-m-check-out">
-                      Silk·épil 9 Flex Epilator, Beauty Set with FaceSpa, SES 9300
+                      {{ title }}
                     </div>
                   </el-col>
-                  <el-col :span="6"><div class="el-col-r-check-out">$389.98</div></el-col>
+                  <el-col :span="6"><div class="el-col-r-check-out">$ {{ total }}</div></el-col>
                 </el-row>
               </div>
               <div>
@@ -83,7 +83,7 @@
                   </el-col>
                   <el-col :span="12">
                     <div>
-                      <h4 class="text-right-check-out margin-right-3-check-out">$389.98</h4>
+                      <h4 class="text-right-check-out margin-right-3-check-out">$ {{ total }}</h4>
                     </div>
                   </el-col>
                 </el-row>
@@ -110,7 +110,7 @@
                   </el-col>
                   <el-col :span="12">
                     <div>
-                      <h2 class="text-right-check-out margin-right-3-check-out">$389.98</h2>
+                      <h2 class="text-right-check-out margin-right-3-check-out">$ {{ total }}</h2>
                     </div>
                   </el-col>
                 </el-row>
@@ -123,13 +123,162 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
+import axios from 'axios'
+import CryptoJS from 'crypto-js'
+
 export default {
+  components: {
+    Cookies,
+    axios,
+    CryptoJS
+  },
   name: 'CheckOut',
   data () {
     return {
-      email: '',
-      activeNames: '1'
+      email: '', // 邮件
+      activeNames: '1',
+      total: 0, // 总价
+      title: '', // 标题
+      firstName: '', // 姓
+      lastName: '', // 名
+      country: '', // 国家
+      code: '', // 邮编
+      province: '', // 洲
+      city: '', // 市
+      addressOne: '', // 地址1
+      addressTwo: '', // 地址2
+      phone: '', // 手机号码
+      num: 0,
+      price: 0
     }
+  },
+  methods: {
+    initInfo () {
+      let params = this.$route.params
+      let title = ''
+      let num = 1
+      let price = 0
+      let total = 0
+      if (params.title === '' || params.title === undefined) {
+        title = Cookies.get('title')
+        num = Cookies.get('num')
+        price = Cookies.get('price')
+        total = Cookies.get('total')
+      } else {
+        title = params.title // 标题
+        num = params.num // 数量
+        price = params.price // 单价
+        total = params.total // 总价
+        Cookies.set('title', title)
+        Cookies.set('num', num)
+        Cookies.set('price', price)
+        Cookies.set('total', total)
+      }
+      this.title = title // 标题
+      this.num = num // 数量
+      this.price = price // 单价
+      this.total = total // 总价
+    },
+    commitOrder () {
+      // 校验
+      if (!this.validate()) {
+        return 0
+      }
+      // 提交订单
+      let md5 = this.total + this.email + this.code + this.phone + this.country + 'qf-01' + '4f5af48e7ate8whfkjawA*456' // 与后台的校验
+      md5 = CryptoJS.MD5(md5).toString()
+      const postData = {
+        email: this.email,
+        productId: 'qf-01', // 这里先写死
+        country: this.country,
+        addressOne: this.addressOne,
+        addressTwo: this.addressTwo,
+        city: this.city,
+        province: this.province,
+        code: this.code,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        phone: this.phone,
+        price: this.price,
+        orderPrice: this.total,
+        num: this.num,
+        postage: 0, // 物流暂时没有就写死0
+        otherInfo: {'description': this.title},
+        md5: md5
+      }
+      axios.post('http://localhost:8081/paypal/pay', postData)
+        .then(response => {
+          console.log(response)
+          if (response.data.code !== 1) {
+            this.messageInfo(response.data.message)
+          } else {
+            console.log(response.data.data)
+            window.location.href = response.data.data
+          }
+        })
+        .catch(error => {
+          console.error('There was an error!', error)
+        })
+    },
+    validate () {
+      // 邮箱校验
+      if (this.email === '') {
+        this.messageInfo('Email Name cannot be empty')
+        return false
+      }
+      // 姓校验
+      if (this.firstName === '') {
+        this.messageInfo('First Name cannot be empty')
+        return false
+      }
+      // 名校验
+      if (this.lastName === '') {
+        this.messageInfo('Last Name cannot be empty')
+        return false
+      }
+      // 国家校验
+      if (this.country === '') {
+        this.messageInfo('Country cannot be empty')
+        return false
+      }
+      // 邮编校验
+      if (this.code === '') {
+        this.messageInfo('Postal Code cannot be empty')
+        return false
+      }
+      // 洲校验
+      if (this.province === '') {
+        this.messageInfo('State/Province cannot be empty')
+        return false
+      }
+      // 城市校验
+      if (this.city === '') {
+        this.messageInfo('City cannot be empty')
+        return false
+      }
+      // 地址校验
+      if (this.addressOne === '') {
+        this.messageInfo('Address cannot be empty')
+        return false
+      }
+      // 手机校验
+      if (this.phone === '') {
+        this.messageInfo('Phone Number cannot be empty')
+        return false
+      }
+      return true
+    },
+    messageInfo (msg) {
+      this.$message({
+        showClose: true,
+        message: msg,
+        type: 'error'
+      })
+    }
+  },
+  mounted () {
+    this.initInfo()
   }
 }
 </script>
