@@ -7,7 +7,7 @@
     </div>
     <el-menu :default-active="activeIndex" class="el-menu-demo el-title" mode="horizontal">
       <el-menu-item class="font-size-title" @click="gotohome()" index="1">Home</el-menu-item>
-      <el-menu-item class="font-size-title" index="2">About Luminique</el-menu-item>
+      <el-menu-item class="font-size-title" @click="brand()" index="2">About Luminique</el-menu-item>
       <el-submenu index="3">
         <div class="font-size-title" slot="title">Star Products</div>
         <el-menu-item class="font-size-title" @click="buy()" index="2-1">Luminique 1.0</el-menu-item>
@@ -34,6 +34,9 @@ export default {
     },
     buy () {
       this.$router.push({name: 'buy'})
+    },
+    brand () {
+      this.$router.push({name: 'brandDetail'})
     }
   },
   props: ['activeIndex']

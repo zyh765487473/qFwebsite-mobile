@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading.fullscreen.lock="fullscreenLoading">
     <Title :activeIndex=activeIndex></Title>
     <el-row>
       <el-col :span="12">
@@ -112,7 +112,8 @@ export default {
         {id: 2, value: '■ Sapphire-Ice Cooling and UV filter'},
         {id: 3, value: '■ Sapphire-Ice Cooling and UV filter'},
         {id: 4, value: '■ 93% Hair Reduction in 4 Weeks'}
-      ]
+      ],
+      fullscreenLoading: false
     }
   },
   methods: {
@@ -122,6 +123,15 @@ export default {
     }
   },
   mounted () {
+    this.fullscreenLoading = true
+    setTimeout(() => {
+      this.fullscreenLoading = false
+    }, 500)
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // 平滑滚动，回到顶部
+    })
   }
 }
 </script>

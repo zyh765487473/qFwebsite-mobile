@@ -152,6 +152,7 @@ export default {
       this.num = num // 数量
       this.price = price // 单价
       this.total = total // 总价
+      window.scrollTo({top: 0, behavior: 'smooth'}) // 回到顶部
     },
     handleChange (value) {
       this.total = (this.price * this.num).toFixed(2)

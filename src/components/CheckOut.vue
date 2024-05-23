@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: 0px;">
+  <div style="margin-top: 0px;" v-loading.fullscreen.lock="fullscreenLoading">
     <div class="div-backg-check-out">
       <div>
         <el-image
@@ -150,7 +150,8 @@ export default {
       addressTwo: '', // 地址2
       phone: '', // 手机号码
       num: 0,
-      price: 0
+      price: 0,
+      fullscreenLoading: false
     }
   },
   methods: {
@@ -181,8 +182,10 @@ export default {
       this.total = total // 总价
     },
     commitOrder () {
+      this.fullscreenLoading = true
       // 校验
       if (!this.validate()) {
+        this.fullscreenLoading = false
         return 0
       }
       // 提交订单
@@ -211,13 +214,14 @@ export default {
         .then(response => {
           console.log(response)
           if (response.data.code !== 1) {
+            this.fullscreenLoading = false
             this.messageInfo(response.data.message)
           } else {
-            console.log(response.data.data)
             window.location.href = response.data.data
           }
         })
         .catch(error => {
+          this.fullscreenLoading = false
           console.error('There was an error!', error)
         })
     },
