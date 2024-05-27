@@ -4,7 +4,7 @@
     </el-image>
     <div><el-image style="width: 100px; height: 100px" :src="iconUrl"></el-image><h1 style="color: red;margin-left: 5px;">CANCEL!</h1></div>
     <h3>We are very sorry that your payment was not successful.</h3>
-    <el-link type="danger" href="http://localhost:8080/home" style="font-size: 25px;">go home -></el-link>
+    <el-link type="danger" href="http://122.8.184.48:8080/home" style="font-size: 25px;">go home -></el-link>
   </div>
 </template>
 

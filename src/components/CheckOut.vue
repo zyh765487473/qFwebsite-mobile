@@ -210,7 +210,7 @@ export default {
         otherInfo: {'description': this.title},
         md5: md5
       }
-      axios.post('http://localhost:8081/paypal/pay', postData)
+      axios.post('http://122.8.184.48:8081/paypal/pay', postData)
         .then(response => {
           console.log(response)
           if (response.data.code !== 1) {
