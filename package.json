@@ -14,10 +14,12 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "axios": "^0.27.2",
+    "amfe-flexible": "^2.2.1",
+    "axios": "^1.7.2",
     "crypto-js": "^4.2.0",
     "element-ui": "^2.15.14",
     "js-cookie": "^3.0.5",
+    "postcss-pxtorem": "^6.1.0",
     "vue": "^2.5.2",
     "vue-cookies": "^1.8.4",
     "vue-paypal-checkout": "^3.2.0",

@@ -3,13 +3,13 @@
     <div class="div-backg-check-out">
       <div>
         <el-image
-            class="img-title" style="height: 100px; margin-right: 62%; margin-top: 1%;"
+            class="img-title" style="height: 50px; margin-right: 62%; margin-top: 1%;"
             :src="require('@/assets/logo.jpg')"></el-image>
       </div>
     </div>
     <div class="div-check-out">
       <el-row>
-        <el-col :span="14" class="el-col-width-check-out">
+        <el-col :span="24" class="el-col-width-check-out">
           <div>
             <h1 class="text-left-check-out">Customer</h1>
             <div class="sub-title float-left-check-out margin-check-out">Email：</div>
@@ -52,7 +52,9 @@
           </div>
           <el-button type="info" class="but-check-out" @click="commitOrder">CONTINUE WITH PAYPAL</el-button>
         </el-col>
-        <el-col :span="10" class="el-col-right-check-out">
+      </el-row>
+      <el-row>
+        <el-col :span="24" class="el-col-right-check-out">
           <el-card class="box-card">
               <div><h1 class="text-left-check-out margin-left-3-check-out">Order Summary</h1></div>
               <div>
@@ -124,13 +126,11 @@
 
 <script>
 import Cookies from 'js-cookie'
-import axios from 'axios'
 import CryptoJS from 'crypto-js'
 
 export default {
   components: {
     Cookies,
-    axios,
     CryptoJS
   },
   name: 'CheckOut',
@@ -180,6 +180,8 @@ export default {
       this.num = num // 数量
       this.price = price // 单价
       this.total = total // 总价
+      // 买家信息读取缓存
+      this.buyerCacheHandle(1)
     },
     commitOrder () {
       this.fullscreenLoading = true
@@ -188,42 +190,6 @@ export default {
         this.fullscreenLoading = false
         return 0
       }
-      // 提交订单
-      let md5 = this.total + this.email + this.code + this.phone + this.country + 'qf-01' + '4f5af48e7ate8whfkjawA*456' // 与后台的校验
-      md5 = CryptoJS.MD5(md5).toString()
-      const postData = {
-        email: this.email,
-        productId: 'qf-01', // 这里先写死
-        country: this.country,
-        addressOne: this.addressOne,
-        addressTwo: this.addressTwo,
-        city: this.city,
-        province: this.province,
-        code: this.code,
-        firstName: this.firstName,
-        lastName: this.lastName,
-        phone: this.phone,
-        price: this.price,
-        orderPrice: this.total,
-        num: this.num,
-        postage: 0, // 物流暂时没有就写死0
-        otherInfo: {'description': this.title},
-        md5: md5
-      }
-      axios.post('http://122.8.184.48:8081/paypal/pay', postData)
-        .then(response => {
-          console.log(response)
-          if (response.data.code !== 1) {
-            this.fullscreenLoading = false
-            this.messageInfo(response.data.message)
-          } else {
-            window.location.href = response.data.data
-          }
-        })
-        .catch(error => {
-          this.fullscreenLoading = false
-          console.error('There was an error!', error)
-        })
     },
     validate () {
       // 邮箱校验
@@ -279,6 +245,35 @@ export default {
         message: msg,
         type: 'error'
       })
+    },
+    buyerCacheHandle (type) {
+      // type = 1时第一次进，type = 2时是下单时候的信息更新
+      // 1. 第一次进来，有缓存就赋值，没缓存不处理
+      if (type === 1 && Cookies.get('email') !== undefined) {
+        this.email = Cookies.get('email')
+        this.country = Cookies.get('country')
+        this.addressOne = Cookies.get('addressOne')
+        this.addressTwo = Cookies.get('addressTwo')
+        this.city = Cookies.get('city')
+        this.province = Cookies.get('province')
+        this.code = Cookies.get('code')
+        this.firstName = Cookies.get('firstName')
+        this.lastName = Cookies.get('lastName')
+        this.phone = Cookies.get('phone')
+      }
+
+      if (type === 2) {
+        Cookies.set('email', this.email)
+        Cookies.set('country', this.country)
+        Cookies.set('addressOne', this.addressOne)
+        Cookies.set('addressTwo', this.addressTwo)
+        Cookies.set('city', this.city)
+        Cookies.set('province', this.province)
+        Cookies.set('code', this.code)
+        Cookies.set('firstName', this.firstName)
+        Cookies.set('lastName', this.lastName)
+        Cookies.set('phone', this.phone)
+      }
     }
   },
   mounted () {
@@ -323,16 +318,16 @@ export default {
 }
 
 .div-check-out {
-  width: 70%;
-  margin-left: 15%;
+  width: 90%;
+  margin-left: 5%;
 }
 .div-backg-check-out {
   background-color: #DDDDDD;
-  height: 150px;
+  height: 100px;
 }
 
 .el-col-width-check-out {
-  width: 50%;
+  width: 100%;
 }
 
 .but-check-out {
@@ -345,9 +340,10 @@ export default {
 }
 
 .el-col-right-check-out {
-  margin-left: 15%;
-  width: 35%;
+  width: 100%;
   margin-top: 3%;
+  margin-bottom: 8%;
+  margin-left: 0%;
 }
 
 .el-col-m-check-out {

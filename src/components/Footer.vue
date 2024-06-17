@@ -1,7 +1,7 @@
 <template>
   <div style="background-color:#444444; margin-top:3%;">
     <el-row>
-      <el-col :span="6" style="margin: 40px 40px 40px 10%;">
+      <el-col :span="12" style="margin: 40px 40px 40px 10%;">
         <div style="width: 100%; height: 30%; text-align:left" class="grid-content bg-purple">
           <el-image style="width: 50%; height: 100%;" :src="require('@/assets/logo.jpg')"></el-image>
         </div>
@@ -11,7 +11,7 @@
           <el-image style="width: 50%; height: 100%;" :src="require('@/assets/4.png')"></el-image>
         </div>
       </el-col>
-      <el-col :span="6" style="margin: 60px 0px 0px -10%;">
+      <el-col :span="12" style="margin: 0px 0px 0px -7%;">
         <div class="grid-content bg-purple-light">
           <h4 style="color: #FFFFFF">Policies & Help</h4>
           <h5 style="color: #AAAAAA">Terms of Service</h5>
@@ -22,7 +22,7 @@
           <h5 style="color: #AAAAAA">Track Order</h5>
         </div>
       </el-col>
-      <el-col :span="6" style="margin: 60px 0px 0px -7%;">
+      <el-col :span="8" style="margin: 0px 0px 0px -10%;">
         <div class="grid-content bg-purple-light">
           <h4 style="color: #FFFFFF">Main Menu</h4>
           <h5 style="color: #AAAAAA">Home</h5>
@@ -33,7 +33,7 @@
           <h5 style="color: #AAAAAA">Need Help?</h5>
         </div>
       </el-col>
-      <el-col :span="6" style="margin: 60px 0px 0px -7%;">
+      <el-col :span="8" style="margin: 0px 0px 0px -2%;">
         <div class="grid-content bg-purple-light">
           <h4 style="color: #FFFFFF">Policies & Help</h4>
           <h5 style="color: #AAAAAA">Terms of Service</h5>

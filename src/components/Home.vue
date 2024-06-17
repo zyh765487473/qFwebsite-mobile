@@ -4,20 +4,11 @@
       <FloatingPanel v-if="logo"></FloatingPanel>
     </transition>
     <Title :activeIndex=activeIndex></Title>
-
-    <div class="div-top-home">
-      <el-carousel :interval="2000" type="card">
-        <el-carousel-item class="el-carousel-item-home" v-for="item in imgList" :key="item.id">
-          <img style="object-fit: scale-down; width:100%; height:100%" :src="item.idView">
-        </el-carousel-item>
-      </el-carousel>
-    </div>
-
     <div class="div-top-home">
       <div class="img-home-pos">
         <div class="div-imgd-home">
-          <h1 class="text-color-home">Luminique</h1>
-            <h4 class="text-color-home">women face epilator</h4>
+          <h3 class="text-color-home">Luminique</h3>
+            <h5 class="text-color-home">women face epilator</h5>
             <el-row>
               <el-col :span="12">
                 <div class="grid-content bg-purple">
@@ -36,8 +27,8 @@
       <div></div>
       <div class="img-home-pos">
         <div class="div-imgd-home">
-          <h1 class="text-color-home">Luminique</h1>
-            <h4 class="text-color-home">women face epilator</h4>
+          <h4 class="text-color-home">Luminique</h4>
+            <h5 class="text-color-home">women face epilator</h5>
             <el-row>
               <el-col :span="12">
                 <div class="grid-content bg-purple">
@@ -81,11 +72,6 @@ export default {
     return {
       activeIndex: '1',
       logo: true,
-      imgList: [
-        {id: 0, idView: require('@/assets/1.jpg')},
-        {id: 1, idView: require('@/assets/2.jpg')},
-        {id: 2, idView: require('@/assets/3.jpg')}
-      ],
       url: 'https://ulikebeauty.com/public/static/ulike/images/logo_f.svg'
     }
   },
@@ -122,11 +108,11 @@ export default {
   margin-top: -4px;
 }
 .custom-button {
-  height: 50px;
+  height: 28px;
   margin-top:0%;
-  border-radius: 40px;
-  width:60%;
-  font-size:15px;
+  border-radius: 10px;
+  width:90%;
+  font-size:10px;
   font-weight:bold
 }
 .text-color-home {
@@ -138,9 +124,9 @@ export default {
 .div-imgd-home {
   position:absolute;
   z-index:2;
-  left:44%;
-  top:80%;
-  width: 30%;
+  left:36%;
+  top:40%;
+  width: 50%;
   margin-left:-10%
 }
 .imgd-home {

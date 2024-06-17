@@ -2,32 +2,31 @@
   <div v-loading.fullscreen.lock="fullscreenLoading">
     <Title :activeIndex=activeIndex></Title>
     <el-row>
-      <el-col :span="12">
-        <div style="height:40px"></div>
-        <div style="width:80%;">
-          <el-carousel style="left:10%;" indicator-position="outside">
+      <el-col :span="24">
+        <div style="width:100%;">
+          <el-carousel>
             <el-carousel-item style="background-color: rgba(0,0,0,0)" v-for="item in imgList" :key="item.id">
               <img style="object-fit: scale-down; width:100%; height:100%" :src="item.idView">
             </el-carousel-item>
           </el-carousel>
         </div>
       </el-col>
-      <el-col :span="12">
-        <div>
+      <el-col :span="24">
+        <div style="margin-left: 5%;">
           <!--大标题（品牌型号）-->
-          <h1 class="text-left-g">{{logoTitle}}</h1>
+          <h1>{{logoTitle}}</h1>
           <!--标题-->
-          <h2 class="text-left-g">{{title}}</h2>
+          <h4>{{title}}</h4>
           <el-row>
             <!--价格-->
             <el-col :span="12">
               <div class="grid-content bg-purple">
-                <h2 class="text-left-g">${{price}} USD</h2>
+                <h4>${{price}} USD</h4>
               </div>
             </el-col>
             <el-col :span="12">
               <div class="grid-content bg-purple-light">
-                <el-rate class="text-left-g" style="font-size: 30px; font-size: 20px; margin-top: 3%; margin-left: -10%;"
+                <el-rate style="font-size: 15px; margin-top: 9%; margin-left: -10%;"
                   v-model="value"
                   disabled
                   text-color="red"
@@ -47,11 +46,11 @@
           <el-row>
             <el-col :span="12">
               <div class="grid-content bg-purple">
-                <h2 class="text-left-g">Color: Purple</h2>
+                <h4 style="margin-left: 20%;" class="text-left-g">Color: Purple</h4>
               </div>
             </el-col>
             <el-col :span="12">
-              <div class="grid-content bg-purple-light">
+              <div style="margin-top: 6%;" class="grid-content bg-purple-light">
                 <el-input-number v-model="num" :min="1" :max="5" label="Quantity:"></el-input-number>
               </div>
             </el-col>
@@ -144,26 +143,17 @@ export default {
   .el-carousel__item:nth-child(2n+1) {
     background-color: #d3dce6;
   }
-  */deep/ .el-carousel__container {
-    height: 500px
-  }
-  */deep/ .el-input-number--small {
-    margin-left: -50%;
-    margin-top:3%;
-    width: 200px;
-    line-height: 30px;
-  }
   .text-left-g {
     text-align:left;
+    margin-left: 10%;
   }
   .custom-divider {
     margin: 10px; /* 上下间距 */
-    width: 73%; /* 分割线长度 */
-    margin-left: 0%;
+    width: 90%; /* 分割线长度 */
+    margin-left: 5%;
   }
   .custom-button {
     position: relative;
-    margin-left: -27%;
     width: 73%;
     height: 50px;
     margin-top:2%;

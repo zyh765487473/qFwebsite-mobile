@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>{{title}}</h1>
+    <h3>{{title}}</h3>
     <el-collapse class="faq-div-css" v-model="activeName" accordion>
       <el-collapse-item v-for="item in textList" :key="item.id" :name="item.id">
         <template slot="title">
           <div class="custom-text">{{item.title}}</div>
         </template>
-        <h3 class="faq-h3">{{item.text}}</h3>
+        <h4 class="faq-h3">{{item.text}}</h4>
       </el-collapse-item>
     </el-collapse>
   </div>
@@ -37,12 +37,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .custom-text {
-  font-size: 20px; /* 这里设置你想要的字体大小 */
+  font-size: 16px; /* 这里设置你想要的字体大小 */
   font-weight: bold;
 }
 .faq-div-css {
-  width:60%;
-  margin-left:20%;
+  width:80%;
+  margin-left:10%;
 }
 .faq-h3 {
   text-align: left
